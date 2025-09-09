@@ -1,5 +1,6 @@
 import { CartProvider, useCart } from "../../context/CartContext";
 import type { CardSetting } from "../../types/type";
+import Button from "../Button/Button";
 
 function Card({ product }: { product: CardSetting }) {
   const { dispatch, state } = useCart();
@@ -11,8 +12,13 @@ function Card({ product }: { product: CardSetting }) {
   function decrementItem(id: number): void {
     dispatch({ type: "DECREMENT_CART_ITEM", id });
   }
+
   function incrementItem(id: number): void {
     dispatch({ type: "INCREMENT_CART_ITEM", id });
+  }
+
+  function removeFromCart(id: number): void {
+    dispatch({ type: "REMOVE_FROM_CART", id });
   }
 
   function counterCartItems(id: number): number {
@@ -33,30 +39,31 @@ function Card({ product }: { product: CardSetting }) {
             <p className="text-lg font-semibold">{product.price}₴</p>
             {counterCartItems(product.id) > 0 ? (
               <div className="flex items-center justify-between gap-3">
-                <button
-                  className="text-[#FF9119] hover:text-white border border-[#FF9119] hover:bg-[#FF9119]font-medium rounded-lg text-sm text-center dark:border-[#FF9119] dark:text-[#FF9119] dark:hover:text-white dark:hover:bg-[#FF9119] size-8"
-                  onClick={() => decrementItem(product.id)}
+                <Button
+                  className="size-8"
+                  onClick={() =>
+                    counterCartItems(product.id) > 1
+                      ? decrementItem(product.id)
+                      : removeFromCart(product.id)
+                  }
                 >
                   -
-                </button>
+                </Button>
                 <span className="text-lg font-semibold">
                   {counterCartItems(product.id)}
                 </span>
-                <button
-                  className="text-[#FF9119] hover:text-white border border-[#FF9119] hover:bg-[#FF9119] font-medium rounded-lg text-sm text-center dark:border-[#FF9119] dark:text-[#FF9119] dark:hover:text-white dark:hover:bg-[#FF9119] size-8"
+
+                <Button
+                  className="size-8"
                   onClick={() => incrementItem(product.id)}
                 >
                   +
-                </button>
+                </Button>
               </div>
             ) : (
-              <button
-                type="button"
-                className="text-[#FF9119] hover:text-white border border-[#FF9119] hover:bg-[#FF9119] font-medium rounded-lg text-sm px-2.5 text-center dark:border-[#FF9119] dark:text-[#FF9119] dark:hover:text-white dark:hover:bg-[#FF9119] h-8"
-                onClick={() => addToCart(product)}
-              >
+              <Button className="h-8" onClick={() => addToCart(product)}>
                 У кошик
-              </button>
+              </Button>
             )}
           </div>
           <h3 className="font-bold text-xl">{product.title}</h3>
