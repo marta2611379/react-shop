@@ -1,9 +1,8 @@
-import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-
+import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";  
+import { useCart } from "./context/CartContext";
 import About from "./pages/About/About";
 import Cart from "./pages/Cart/Cart";
 import Home from "./pages/Home/Home";
-import { useCart } from "./context/CartContext";
 
 function App() {
   const { state } = useCart();
@@ -14,31 +13,29 @@ function App() {
         <div className="flex space-x-6">
           <Link
             to="/"
-            className="text-gray-700 font-medium hover:text-orange-500 transition"
+            className="text-gray font-medium hover:text-orange transition"
           >
             Home
           </Link>
           <Link
-            to="/cart"
-            className="text-gray-700 font-medium hover:text-orange-500 transition"
-          >
-            Cart
-          </Link>
-          <Link
             to="/about"
-            className="text-gray-700 font-medium hover:text-orange-500 transition"
+            className="text-gray font-medium hover:text-orange transition"
           >
             About
           </Link>
         </div>
-
-        <span className="ml-auto bg-orange-500 text-white text-sm font-semibold px-3 py-1 rounded-full">
-          {state.items.map((item) => item.quantity).reduce((a, b) => a + b, 0)}{" "}
-          items
-        </span>
+        <Link
+          to="/cart"
+          className="ml-auto bg-orange text-white text-sm font-semibold px-3 py-1 rounded-full"
+        >
+          <span>
+            {state.items
+              .map((item) => item.quantity)
+              .reduce((a, b) => a + b, 0)}
+          </span>
+        </Link>
       </nav>
 
-      {/* Контент */}
       <div className="container mx-auto px-6 py-6">
         <Routes>
           <Route path="/" element={<Home />} />

@@ -14,7 +14,7 @@ function Button({
 
   const variants: Record<typeof variant, string> = {
     primary:
-      "text-[#FF9119] hover:text-white border border-[#FF9119] hover:bg-[#FF9119] font-medium rounded-lg text-sm px-2.5 text-center dark:border-[#FF9119] dark:text-[#FF9119] dark:hover:text-white dark:hover:bg-[#FF9119]",
+      "text-orange hover:text-white border border-orange hover:bg-orange font-medium rounded-lg text-sm px-2.5 text-center",
     secondary:
       "bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400",
     danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
